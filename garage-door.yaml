@@ -1,0 +1,105 @@
+esphome:
+  name: garage-door
+  platform: ESP8266
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "WHATESPHOMEMADE"
+
+wifi:
+  ssid: "SSID OF YOUR NETWORK"
+  password: "PASSWORD"
+ 
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "THESSIDESPHOMECREATES"
+    password: "PASSWORD"
+
+captive_portal:
+# Switch definiations for the RELAY that is on pin D1 
+switch:
+  - platform: gpio
+    pin: D1
+    name: "Garage Door Open Switch"
+    id: open_switch
+  - platform: gpio
+    pin: D1
+    name: "Garage Door Close Switch"
+    id: close_switch
+cover:
+  - platform: template
+    name: "Garage Door"
+    open_action:
+      # Cancle any action that might be goign on
+      - switch.turn_off: close_switch
+      # Turn the OPEN switch (RELAY) on briefly
+      - switch.turn_on: open_switch
+      # This was as long as my garage door needed, adjust it based on your garage door
+      - delay: 0.5s
+      # Close the switch (RELAY)
+      - switch.turn_off: open_switch
+    close_action:
+      # Same as the open action but needed to be defined for the cover. 
+      - switch.turn_off: open_switch
+      - switch.turn_on: close_switch
+      - delay: 0.5s
+      - switch.turn_off: close_switch
+    # This only applies really if you are using the switch option vs the cover, but keep it here just in case
+    stop_action:
+      - switch.turn_off: close_switch
+      - switch.turn_off: open_switch
+    optimistic: true
+    assumed_state: true
+    # This will change the cover state based on the reed switch that is defined below. 
+    lambda: !lambda |-
+      if (id(garage_door).state) {
+        return COVER_OPEN;
+      } else {
+        return COVER_CLOSED;
+      }
+# GPIO for the REED SWITCH 
+binary_sensor:
+  - platform: gpio
+    pin: 
+      # This is the RX on the D1 Mini 
+      # Can change as needed but I found this pin works best in my testing of my reed switch
+      number: GPIO3
+    name: Garage Door
+    id: garage_door
+    device_class: door
+# I like to map the LED to D4   
+light:      
+  - platform: monochromatic
+    name: "Garage Onboard LED"
+    output: onboard_led
+    id: led
+# Here is where we define the led that we are turning on as a light. 
+output:
+  - platform: esp8266_pwm
+    id: onboard_led
+    pin:
+      number: D4
+      inverted: true
+# Wifi signal sensor defined just so you know what the wifi is like on these little boards.      
+sensor:
+  - platform: wifi_signal
+    name: "Garage ESP WiFi Signal Sensor"
+    update_interval: 60s
+  # This is a TMP36 Temprature sensor. 
+  # I have to sometimes change the values of the +32 to calibrate it (in cases + 24 instead) 
+  - platform: adc
+    pin: A0
+    name: "Garage Temperature"
+    update_interval: 60s
+    filters:
+      - multiply: 3.3
+      - lambda: return ((x - 0.5) * 100) * (9.0/5.0) + 32.0;
+    unit_of_measurement: "°F" 
+    
