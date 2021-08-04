@@ -1,6 +1,6 @@
 # esphome-garage
 Custom Board can be found: [Garage Door Sensor](https://easyeda.com/sjhilt/ha_sensor_copy)
-![](http://github.com/sjhilt/esphome-garage/garage_door.png)
+![](https://github.com/sjhilt/esphome-garage/blob/main/garage_door.png)
 
 # Make Your Own
 You can do the same thing on a breadboard, or a permaproto board. 
