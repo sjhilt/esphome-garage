@@ -1,6 +1,8 @@
 # esphome-garage
 Custom Board can be found: [Garage Door Sensor](https://easyeda.com/sjhilt/ha_sensor_copy)
 
+Feel free to edit as you see fit or the Gerber files are located in the `board` directoy of this project 
+
 
 ![](https://github.com/sjhilt/esphome-garage/blob/main/garage_door.png)
 
