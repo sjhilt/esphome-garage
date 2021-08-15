@@ -19,3 +19,7 @@ Reed Switch: [Adafruit](https://www.adafruit.com/product/375)|[Amazon](https://w
 
 # Layout Of Board
 ![](https://github.com/sjhilt/esphome-garage/blob/main/garage_door_layout.png)
+
+
+*** NOTE ***
+The IR beam works for mine, but may not work with yours as this can sometimes be over 5v you will need to check this, if you want you can use a IR Break sensor but will need to change the board design a bit yourself or I can help if needed, in most cases this isn't needed but I added it just to play with it 
