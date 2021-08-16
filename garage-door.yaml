@@ -37,27 +37,32 @@ cover:
   - platform: template
     name: "Garage Door"
     open_action:
-      # Cancle any action that might be goign on
+      # Cancel any previous action
       - switch.turn_off: close_switch
-      # Turn the OPEN switch (RELAY) on briefly
+      # Turn the OPEN switch on briefly
       - switch.turn_on: open_switch
-      # This was as long as my garage door needed, adjust it based on your garage door
+      # Tun on the LED to show status activity
+      - light.turn_on: led
       - delay: 0.5s
-      # Close the switch (RELAY)
       - switch.turn_off: open_switch
+      - delay: 15s 
+      # Turn off LED to show door is closed (adust timing for your own doors)
+      - light.turn_off: led
     close_action:
-      # Same as the open action but needed to be defined for the cover. 
       - switch.turn_off: open_switch
       - switch.turn_on: close_switch
+      # Tun on the LED to show status activity
+      - light.turn_on: led
       - delay: 0.5s
       - switch.turn_off: close_switch
-    # This only applies really if you are using the switch option vs the cover, but keep it here just in case
+      - delay: 15s 
+      # Turn off LED to show door is closed (adust timing for your own doors)
+      - light.turn_off: led
     stop_action:
       - switch.turn_off: close_switch
       - switch.turn_off: open_switch
     optimistic: true
     assumed_state: true
-    # This will change the cover state based on the reed switch that is defined below. 
     lambda: !lambda |-
       if (id(garage_door).state) {
         return COVER_OPEN;
