@@ -80,12 +80,12 @@ binary_sensor:
     id: garage_door
     device_class: garage_door
    # IR SENSOR
-   - platform: gpio
-     pin: 
-        number: D0
-     name: Garage Door IR Sensor
-     id: garage_door_ir
-     device_class: motion
+  - platform: gpio
+    pin: 
+      number: D0
+    name: Garage Door IR Sensor
+    id: garage_door_ir
+    device_class: motion
 # I like to map the LED to D4   
 light:      
   - platform: monochromatic
