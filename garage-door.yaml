@@ -72,6 +72,9 @@ cover:
 # GPIO for the REED SWITCH 
 binary_sensor:
   - platform: gpio
+  # I had a NO switch, if you have a NC switch you will need to use the invert filter. 
+  #  filters: 
+  #    - invert: 
     pin: 
       # This is the RX on the D1 Mini 
       # Can change as needed but I found this pin works best in my testing of my reed switch
