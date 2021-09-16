@@ -14,7 +14,7 @@ TMP36: [Adafruit](https://www.adafruit.com/product/165)|[Amazon](https://www.ama
 
 Relay Shield: [Amazon](https://www.amazon.com/HiLetgo-Relay-Shield-Module-WeMos/dp/B01NACU547/)
 
-Reed Switch: [Amazon](https://www.amazon.com/gp/product/B0154PTDFI/)
+Reed Switch: [Adafruit](https://www.adafruit.com/product/375)|[Amazon](https://www.amazon.com/gp/product/B0154PTDFI/)
 
 
 # Layout Of Board
